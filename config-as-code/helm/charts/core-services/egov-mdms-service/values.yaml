@@ -13,8 +13,8 @@ ingress:
 initContainers:
   gitSync:
     enabled: true
-    repo: "git@github.com:egovernments/egov-mdms-data"
-    branch: "master"
+    repo: "git@github.com:niua-org/upyog-mdms-data-niuatt.git"
+    branch: "niua-dev"
 
 # Container Configs
 image:
@@ -31,8 +31,8 @@ java-args: "-Dspring.profiles.active=monitoring"
 mdms-path: "/work-dir/egov-mdms-data/data"
 mdms-git-url: ""
 mdms-folder: "egov-mdms-data"
-masters-config-url: "file:///work-dir/egov-mdms-data/master-config.json"
-branch: "master"
+masters-config-url: "file:///work-dir/upyog-mdms-data-niuatt/master-config.json"
+branch: "niua-dev"
 
 # Additional Container Envs
 env: |

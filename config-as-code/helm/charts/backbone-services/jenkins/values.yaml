@@ -411,12 +411,12 @@ master:
                   scm:
                     git:
                       credentialsId: "git_read"
-                      remote: "git@github.com:egovernments/CIOps.git"
+                      remote: "git@github.com:niua-org/CIOps.git"
                       traits:
                       - "gitBranchDiscovery"
       system-message: | 
         jenkins:                                
-          systemMessage: "Welcome to EGOV CI CD server.  This Jenkins is configured and managed as code."    
+          systemMessage: "Welcome to NIUA Internal Tech CI CD server.  This Jenkins is configured and managed as code."    
 
       git-credentials: | 
         credentials:
@@ -490,7 +490,7 @@ master:
                 disabled(false)
               }
               {{- else }}
-              deployer(repo:'git@github.com:egovernments/DIGIT-DevOps.git', branch: 'master', helmDir: 'deploy-as-code/helm', environment: '{{ $job.name }}')""")
+              deployer(repo:'git@github.com:niua-org/UPYOG-DevOps-O.git', branch: 'UPYOG-Bootcamp-jenkins', helmDir: 'config-as-code', environment: '{{ $job.name }}')""")
                       sandbox() 
                     }
                 }
@@ -870,7 +870,7 @@ networkPolicy:
 ## Install Default RBAC roles and bindings
 rbac:
   create: true
-  readSecrets: false
+  readSecrets: true
 
 serviceAccount:
   create: true

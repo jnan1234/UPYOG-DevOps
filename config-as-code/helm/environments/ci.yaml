@@ -1,5 +1,5 @@
 global:
-  domain: <Domain> ## Add your Domain Name Eg: site.mydomain.com
+  domain: niua-cicd.niua.in ## Add your Domain Name Eg: site.mydomain.com
   setup: fullsetup
   
 cluster-configs:
@@ -16,31 +16,31 @@ cluster-configs:
 jenkins:
   persistence:
     enabled: true
-    aws:
-      - volumeId: "vol-060d0b69accaf9312" # Add volume id for jenkins-home
-        zone: ap-south-1b # Add respective availability_zones 
+   # aws:
+   #   - volumeId: "vol-0ca9605ab69093303" # Add volume id for jenkins-home
+   #     zone: ap-south-1b # Add respective availability_zones 
 
   oauth:
     enabled: true
     acl:
       admin:
-        - egovernments*micro-service-devops # Add github team. Members of this team gets admin access on jenkins
+        - niua-org*nudmteam # Add github team. Members of this team gets admin access on jenkins
       user:                                 # Add github team. Members of this team gets login access on jenkins
-        - egovernments*micro-service-dev
-        - egovernments*micro-service-qa
-        - egovernments*micro-service-uat
+        - niua-org*nudmteam-ci
+        - niua-org*nudmteam-qa
+        - niua-org*nudmteam-uat
        
 
   jobBuilder:    # Add jobBuilder repo's, add repo's ssh link
     repos: >-
-      'git@github.com:egovernments/core-services.git','git@github.com:egovernments/business-services.git'
+      'https://github.com/niua-org/UPYOG-NIUA.git'
   deploymentJobs:  # Setup deploymentJobs ACL 
-    - name: dev    # deployment job name
-      acl: [egovernments*micro-service-dev] # GitHub team name, Members of the team get access to deployment job
+    - name: ci    # deployment job name
+      acl: [niua-org*nudmteam-ci] # GitHub team name, Members of the team get access to deployment job
     - name: qa
-      acl: [egovernments*micro-service-qa] 
+      acl: [niua-org*nudmteam-qa] 
     - name: uat
-      acl: [egovernments*micro-service-uat] 
+      acl: [niua-org*nudmteam-uat] 
     
        
   master:
@@ -70,13 +70,13 @@ cert-manager:
   clusterIssuer:
     stage:
       acme:
-        email: "<mail_id>"     # Add mail id
+        email: "cdg-contact@niua.org"     # Add mail id
 
 cluster-autoscaler:
   namespace: jenkins
   cloudProvider: aws  
   awsRegion: ap-south-1
   autoDiscovery:
-    clusterName: <clusterName> # Add cluster name
+    clusterName: niua-cicd # Add cluster name
     tags:
-    - kubernetes.io/cluster/<clusterName> # Add cluster name
+    - kubernetes.io/cluster/niua-cicd # Add cluster name

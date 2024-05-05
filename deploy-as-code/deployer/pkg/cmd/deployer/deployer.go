@@ -15,7 +15,7 @@ import (
 func DeployCharts(options Options) {
 
 	configDir, _ := filepath.Abs(options.ConfigDir)
-	var helmDir = configDir + "/helm"
+	var helmDir = configDir 
 	log.Println(configDir)
 	log.Println("Helm Directory - " + helmDir)
 
@@ -148,7 +148,8 @@ func deployClusterConfigs(index map[string]string, configDir string, envOverride
 	args = append(args, fmt.Sprintf("--output-dir %s", tmpDir))
 	fmt.Println("Before Trimming" + configDir)
 
-	sopsDir := strings.Trim(configDir, "/helm")
+        //sopsDir := "/home/shafeeq/niuatech/UPYOG-DevOps-jenkins/config-as-code"
+	sopsDir := strings.Trim(configDir,"/helm")
 	fmt.Println("path to sops file: " + sopsDir)
 	if _, err := os.Stat(sopsDir + "/.sops.yaml"); os.IsNotExist(err) {
 		fmt.Println("Sops file not found")
