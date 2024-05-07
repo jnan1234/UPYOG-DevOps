@@ -28,7 +28,7 @@ appType: "java-spring"
 tracing-enabled: true
 heap: "-Xmx384m -Xms256m"
 java-args: "-Dspring.profiles.active=monitoring"
-mdms-path: "/work-dir/egov-mdms-data/data"
+mdms-path: "/work-dir/egov-mdms-data-niuatt/data"
 mdms-git-url: ""
 mdms-folder: "egov-mdms-data"
 masters-config-url: "file:///work-dir/upyog-mdms-data-niuatt/master-config.json"
