@@ -1,10 +1,10 @@
 terraform {
   backend "s3" {
-    bucket = "upyogpet-terraform"
+    bucket = <terraform_state_bucket_name>
     key    = "digit-bootcamp-setup/terraform.tfstate"
     region = "ap-south-1"
     # The below line is optional depending on whether you are using DynamoDB for state locking and consistency
-    dynamodb_table = "upyogpet-terraform"
+    dynamodb_table = <terraform_state_bucket_name>
     # The below line is optional if your S3 bucket is encrypted
     encrypt = true
   }
@@ -43,6 +43,12 @@ data "aws_eks_cluster_auth" "cluster" {
   name = "${module.eks.cluster_id}"
 }
 
+data "aws_caller_identity" "current" {}
+
+data "tls_certificate" "thumb" {
+  url = "${data.aws_eks_cluster.cluster.identity.0.oidc.0.issuer}"
+}
+
 provider "kubernetes" {
   host                   = "${data.aws_eks_cluster.cluster.endpoint}"
   cluster_ca_certificate = "${base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)}"
@@ -79,7 +85,63 @@ module "eks" {
       "KubernetesCluster" = "${var.cluster_name}"
     })
   }"
- 
+}
+
+resource "aws_iam_role" "eks_iam" {
+  name = "${var.cluster_name}-eks"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Sid = "EKSWorkerAssumeRole"
+        Effect = "Allow",
+        Principal = {
+          Federated = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/${replace(data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer, "https://", "")}"
+        },
+        Action = "sts:AssumeRoleWithWebIdentity",
+        Condition = {
+          StringEquals = {
+            "${replace(data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer, "https://", "")}:sub" = "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+          }
+        }
+      }
+    ]
+  })
+}
+resource "kubernetes_service_account" "ebs_csi_controller_sa" {
+  metadata {
+    name      = "ebs-csi-controller-sa"
+    namespace = "kube-system"
+  }
+}
+
+resource "kubernetes_annotations" "example" {
+  api_version = "v1"
+  kind        = "ServiceAccount"
+  metadata {
+    name = "ebs-csi-controller-sa"
+    namespace = "kube-system"
+  }
+  annotations = {
+    "eks.amazonaws.com/role-arn" = "${aws_iam_role.eks_iam.arn}"
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "cluster_AmazonEBSCSIDriverPolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+  role       = "${aws_iam_role.eks_iam.name}"
+}
+
+resource "aws_iam_role_policy_attachment" "cluster_AmazonEC2FullAccess" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+  role       = "${aws_iam_role.eks_iam.name}"
+}
+
+resource "aws_iam_openid_connect_provider" "eks_oidc_provider" {
+  client_id_list = ["sts.amazonaws.com"]
+  thumbprint_list = ["${data.tls_certificate.thumb.certificates.0.sha1_fingerprint}"] # This should be empty or provide certificate thumbprints if needed
+  url            = "${data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer}" # Replace with the OIDC URL from your EKS cluster details
 }
 
 resource "aws_security_group_rule" "rds_db_ingress_workers" {
@@ -154,5 +216,3 @@ module "kafka" {
   disk_size_gb = "50"
   
 }
-
-
