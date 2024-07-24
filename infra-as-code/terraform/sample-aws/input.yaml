@@ -7,20 +7,19 @@ cluster_name: "upyogpet"
 ssh_key_name: "upyogpet-ssh-key" 
 
 # Replace with public key which you want to add in your EC2 machines # ssh key which you want to add in your EC2 machines
-public_ssh_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCHj7/5xmJlceMPmHyTN1bc96lNFO2NRWUccdhv7S0ZzPZ4qnlQTvYoT/HAK2nYIRFmn2ml0/dpjOmW1NruHv7aB6WUZKZwOnLF24z/WubC1I904OPhrkLemalhP807vzI+dn1R7wEmDWJcOye1BPHICv30VSrubR+4o7qBejWQuLfMhBMmDZ7ijCxFpfplnJxggZnl8SbXggtzEfobdrIpzozx30CrcB2YBz2VYpQsQALC/ipfReBBVUbYdWAEq0NkUArANqJla3hVgJkOyBaBgBegYpQmQgTeUY0lvbTEwF0Tabk4JnwL3z3FF0IibKVXPwMe4KoiL+bjSqj7XaqR"
-
+public_ssh_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCWtM9dn8gU+v/oqIfJDqBr5H6IaWVTSclmsS2CVCmT0fu2fx3EAgDAP3Uvxtvg6tg4QS1jO+EZOPzjveXU1yfmr8o8LII2KsujxIbCnNWDzQYFQOoY58hmJjsXHdkuFYhozY61VQ7zPsLGyaqHuGDH2YVetXivCv/B/D+SYP2ZBYT/iDU2lfUiMcw559kXP5G94TJvgbuKnrVvUBCwbkEyamORjkAd7FCOt13uFuB8MXNjOYGWnkUfp7nEe0z3iyE/67rJx9/EEsEdSBwc5jRptxgdnYds7bdqOOmFbGNxulwBeirz6l1DNjtkzwEkOf88zVTIv4qyFVQ3ijvy8sIR jnanendra9@gmail.com"
 # Name you want to give to your Database
 # DB name must contain only alphanumeric characters
-db_name: "upyogpet"
+db_name: "demo"
 
 # Replace with DB username you want
 # DB user name must contain only alphanumeric characters
-db_username: "upyogpet" 
+db_username: "demo" 
 
 # Replace with Domain name you want for your web applications
-domain_name: "upyogpet.niua.in"
+domain_name: "digit.intense.in"
 
 # Replace with the name you want to give to your S3 bucket which is used to store the terraform state
-terraform_state_bucket_name: "upyogpet-terraform"
+terraform_state_bucket_name: "intensedigi11"
 
 
