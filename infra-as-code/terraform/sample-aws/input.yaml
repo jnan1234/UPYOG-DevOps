@@ -7,8 +7,7 @@ cluster_name: "demo"
 ssh_key_name: "demo-ssh-key" 
 
 # Replace with public key which you want to add in your EC2 machines # ssh key which you want to add in your EC2 machines
-public_ssh_key: "ssh-rsa zxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxy"
-
+public_ssh_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCWtM9dn8gU+v/oqIfJDqBr5H6IaWVTSclmsS2CVCmT0fu2fx3EAgDAP3Uvxtvg6tg4QS1jO+EZOPzjveXU1yfmr8o8LII2KsujxIbCnNWDzQYFQOoY58hmJjsXHdkuFYhozY61VQ7zPsLGyaqHuGDH2YVetXivCv/B/D+SYP2ZBYT/iDU2lfUiMcw559kXP5G94TJvgbuKnrVvUBCwbkEyamORjkAd7FCOt13uFuB8MXNjOYGWnkUfp7nEe0z3iyE/67rJx9/EEsEdSBwc5jRptxgdnYds7bdqOOmFbGNxulwBeirz6l1DNjtkzwEkOf88zVTIv4qyFVQ3ijvy8sIR jnanendra9@gmail.com"
 # Name you want to give to your Database
 # DB name must contain only alphanumeric characters
 db_name: "demo"
@@ -21,6 +20,6 @@ db_username: "demo"
 domain_name: "demo.digit.org"
 
 # Replace with the name you want to give to your S3 bucket which is used to store the terraform state
-terraform_state_bucket_name: "digit-terraform"
+terraform_state_bucket_name: "intensedigt21"
 
 
