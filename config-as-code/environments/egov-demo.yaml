@@ -581,14 +581,14 @@ kafka-v2:
         zone: <zone> ## REPLACE: add zone
   zookeeperHosts: "zookeeper-v2.zookeeper-cluster:2181/kafka-v2"
 
-  heapOptions: "-Xms1024M -Xmx2048M"
+  heapOptions: "-Xms704M -Xmx704M"
   resources:
     limits:
-      cpu: 1000m
-      memory: 1024Mi
+      cpu: 500m
+      memory: 1408Mi
     requests:
       cpu: 2000m
-      memory: 2048Mi
+      memory: 1408Mi
   lingerMs: "250"
   numberPartitions: "3"
   replicationFactor: "2"
@@ -616,14 +616,14 @@ zookeeper-v2:
         zone: <zone> ## REPLACE: add zone
 
   ## Zookeeper JVM Heap Option
-  heapOptions: "-Xms256M -Xmx1500M"
+  heapOptions: "-Xms256M -Xmx256M"
   resources:
     limits:
-      cpu: 500m
-      memory: 1024Mi
+      cpu: 300m
+      memory: 384Mi
     requests:
-      cpu: 1000m
-      memory: 1500Mi
+      cpu: 300m
+      memory: 384Mi
 
 
 # es-v1-cluster AWS >>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -640,14 +640,14 @@ elasticsearch-data-v1:
       - volumeId: "<elasticsearch-data_volume_id_3>" ## REPLACE: add volume id
         zone: <zone> ## REPLACE: add zone
 
-  esJavaOpts: "-Xmx2g -Xms1g"
+  esJavaOpts: "-Xmx1g -Xms1g"
   resources:
     requests:
       cpu: "500m"
       memory: "2Gi"
     limits:
       cpu: "2000m"
-      memory: "3Gi"
+      memory: "2Gi"
 
 ### es-master-v1 AWS >>>>>>>>>>>>>>>>>>>>
 
@@ -665,14 +665,14 @@ elasticsearch-master-v1:
       - volumeId: "<elasticsearch-master_volume_id_3>" ## REPLACE: add volume id
         zone: <zone> ## REPLACE: add zone
  
-  esJavaOpts: "-Xmx1500m -Xms300m"
+  esJavaOpts: "-Xmx448m -Xms448m"
   resources:
     requests:
       cpu: "300m"
       memory: "896Mi"
     limits:
-      cpu: "1000m"
-      memory: "1500Mi"
+      cpu: "500m"
+      memory: "896Mi"
 
 es-curator:
   schedule: "45 18 * * *"
