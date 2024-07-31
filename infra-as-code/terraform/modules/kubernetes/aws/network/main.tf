@@ -105,7 +105,8 @@ resource "aws_eip" "eip" {
 }
 
 resource "aws_nat_gateway" "nat" {
-  allocation_id = "${aws_eip.eip.id}"
+  ##allocation_id = "${aws_eip.eip.id}"
+  allocation_id = "eipalloc-04169e7acd1f66ccd"
   subnet_id     = "${element(aws_subnet.public_subnet.*.id, 0)}"
 
   depends_on = ["aws_internet_gateway.internet_gateway"]
